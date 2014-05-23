@@ -8,17 +8,31 @@ class HomeController
   # @param [Hash] ignored_arguments
   # @param [Class] view
   def home(ignored_arguments, view)
-    input = view.run
+    input = view.run({})
 
-    unless input == 'questions' or input == 'quit'
-      raise 'invalid command'
+    arguments = {add_question: input.split(' ')[1..-1].join(' ')}
+    input = input.split[0]
+
+    valid_commands = %w(q add)
+    exit_commands = %w(quit exit)
+
+    until valid_commands.include? input or exit_commands.include? input
+      view_arguments = {
+        bad_command_message: "'#{input}' was not a valid command, please try again > "
+      }
+      input = view.run view_arguments
     end
 
-    if input == 'quit'
+    if exit_commands.include? input
       @router.goto :quit
     end
 
-    @router.goto :present_question
+    case input
+      when 'q'
+        @router.goto :present_question
+      when 'add'
+        @router.goto :add_content, arguments
+    end
   end
 
   def quit(ignored_arguments, ignored_view)

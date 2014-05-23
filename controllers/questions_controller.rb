@@ -1,16 +1,15 @@
-require_relative '../database/database'
-
 class QuestionsController
 
   # @param [Router] router
-  def initialize(router)
+  def initialize(router, eval, snippet_service)
     @router = router
+    @eval = eval
+    @snippet_service = snippet_service
   end
-
   # @param [Hash] arguments
   # @param [Class] view
   def present(arguments, view)
-    question = arguments[:question] || Database.get[:method_text]
+    question = arguments[:question] || @snippet_service.get_random[:method_text]
 
     view_arguments = {
         question: question
@@ -18,9 +17,9 @@ class QuestionsController
 
     input = view.run view_arguments
 
-    answer = eval_question(question)
-    correct = eval_answer(input) == answer
-
+    answer = @eval.eval_safe(question)
+    correct = @eval.eval_safe(input) == answer
+    # binding.pry
     next_router_arguments = {
         question: question,
         answer: answer
@@ -44,7 +43,17 @@ class QuestionsController
         answer: answer
     }
 
+    valid_commands = %w(h n)
+
     input = view.run view_arguments
+
+    until valid_commands.include? input
+      bad_command_message = {
+          bad_command_message: "#{input} was not a valid command, please try again > "
+      }
+
+      input = view.run(view_arguments.merge bad_command_message)
+    end
 
     case input
       when 'h'
@@ -59,7 +68,17 @@ class QuestionsController
   # @param [Hash] arguments
   # @param [Class] view
   def incorrect(arguments, view)
-    input = view.run
+    input = view.run({})
+
+    valid_commands = %w(h n r)
+
+    until valid_commands.include? input
+      bad_command_message = {
+          bad_command_message: "#{input} was not a valid command, please try again > "
+      }
+
+      input = view.run bad_command_message
+    end
 
     case input
       when 'h'
@@ -73,35 +92,5 @@ class QuestionsController
     end
   end
 
-private
 
-  # Evals input in a separate thread with $SAFE set to 4
-  # @param [String] input
-  # @return [String] eval'd input
-  def eval_answer(input)
-    execution_limit = 2
-
-    answer = ''
-    eval_thread = Thread.new {
-      $SAFE = 4
-      answer = eval(input)
-    }
-
-    start_time = Time.now
-    while eval_thread.alive? and Time.now - start_time < execution_limit
-      sleep 0.1
-    end
-
-    if eval_thread.alive?
-      eval_thread.terminate
-    end
-
-    answer
-  end
-
-  # @param [String] question
-  # @return [String] eval'd question
-  def eval_question(question)
-    eval(question)
-  end
 end
