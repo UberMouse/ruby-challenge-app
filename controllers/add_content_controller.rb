@@ -6,6 +6,7 @@ class AddContentController
   def initialize(router, my_eval, snippet_service)
     @router = router
     @my_eval = my_eval
+    @snippet_service = snippet_service
   end
 
   # @param [Hash] arguments
@@ -19,7 +20,7 @@ class AddContentController
     case input.downcase
       when 'c'     
        
-        snippet_service.insert arguments[:add_question]  
+        @snippet_service.insert arguments[:add_question]  
 
         @router.goto :home
       when 'h'
