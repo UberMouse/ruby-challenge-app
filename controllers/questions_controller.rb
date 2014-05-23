@@ -19,7 +19,7 @@ class QuestionsController
 
     answer = @eval.eval_safe(question)
     correct = @eval.eval_safe(input) == answer
-
+    # binding.pry
     next_router_arguments = {
         question: question,
         answer: answer
