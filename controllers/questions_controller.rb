@@ -44,7 +44,17 @@ class QuestionsController
         answer: answer
     }
 
+    valid_commands = %w(h n)
+
     input = view.run view_arguments
+
+    until valid_commands.include? input
+      bad_command_message = {
+          bad_command_message: "#{input} was not a valid command, please try again > "
+      }
+
+      input = view.run(view_arguments.merge bad_command_message)
+    end
 
     case input
       when 'h'
@@ -59,7 +69,17 @@ class QuestionsController
   # @param [Hash] arguments
   # @param [Class] view
   def incorrect(arguments, view)
-    input = view.run
+    input = view.run({})
+
+    valid_commands = %w(h n r)
+
+    until valid_commands.include? input
+      bad_command_message = {
+          bad_command_message: "#{input} was not a valid command, please try again > "
+      }
+
+      input = view.run bad_command_message
+    end
 
     case input
       when 'h'
