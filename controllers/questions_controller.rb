@@ -1,16 +1,16 @@
-require_relative '../database/database'
-
 class QuestionsController
 
   # @param [Router] router
-  def initialize(router)
+  def initialize(router, my_eval, snippet_service)
     @router = router
+    @my_eval = my_eval
+    @snippet_service = snippet_service
   end
 
   # @param [Hash] arguments
   # @param [Class] view
   def present(arguments, view)
-    question = arguments[:question] || Database.get[:method_text]
+    question = arguments[:question] || @snippet_service.get_random[:method_text]
 
     view_arguments = {
         question: question
@@ -18,8 +18,8 @@ class QuestionsController
 
     input = view.run view_arguments
 
-    answer = eval_question(question)
-    correct = eval_answer(input) == answer
+    answer = @my_eval.eval_safe(question)
+    correct = @my_eval.eval_safe(input) == answer
 
     next_router_arguments = {
         question: question,
