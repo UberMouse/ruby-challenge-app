@@ -69,7 +69,24 @@ class QuestionsController
 private
 
   def eval_answer(input)
-    eval(input)
+    execution_limit = 2
+
+    answer = ''
+    eval_thread = Thread.new {
+      $SAFE = 4
+      answer = eval(input)
+    }
+
+    start_time = Time.now
+    while eval_thread.alive? and Time.now - start_time < execution_limit
+      sleep 0.1
+    end
+
+    if eval_thread.alive?
+      eval_thread.terminate
+    end
+
+    answer
   end
 
   def eval_question(question)
