@@ -1,10 +1,12 @@
 require 'sequel'
 
 class Database
-  @@db = Sequel.sqlite('methods.db')
+  def initialize(db_name)
+    @db = Sequel.sqlite('methods.db')
+  end
 
-  def self.get
-    methods = @@db[:methods]
+  def get_random
+    methods = @db[:methods]
     methods.all.sample
   end
 end

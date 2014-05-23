@@ -8,6 +8,26 @@ db.create_table! :methods do
 end
 
 methods = db[:methods]
+# #string methods
+# methods.insert(:method_text => '! " "')
+# methods.insert(:method_text => '!!"piglet"')
+# methods.insert(:method_text => '"Taylor skates real good".count "aeiou"')
+# methods.insert(:method_text => '"Engineering Empathy".downcase')
+# methods.insert(:method_text => '"Engineering Empathy".delete "aieou"')
+# methods.insert(:method_text => '"piglet".gsub(/([aeiou])/, "*")')
+# methods.insert(:method_text => '"piglet".index(/([aeiou])/)')
+# methods.insert(:method_text => '"piglet".match(/([aeiou])/)')
+# methods.insert(:method_text => '"piglet".prepend("Wassup")')
+# methods.insert(:method_text => '"piglet".reverse')
+# methods.insert(:method_text => '"pig".partition(/([aeiou])/)')
+# methods.insert(:method_text => '"piglet".slice(2..4)')
+# methods.insert(:method_text => '"piglet".slice(1,4)')
+# methods.insert(:method_text => '"piglet".to_sym')
+# methods.insert(:method_text => '"piglet".split(' ')')
+# 	#do not randomise
+# methods.insert(:method_text => '"RubyChallenger".casecmp')
+# methods.insert(:method_text => '"RubyChallenger".swapcase')
+# methods.insert(:method_text => '"coffee".center(10, "**")')
 methods.insert(:method_text => '[1, 2, 3, 4].reduce(0) {|result, n| result += n}')
 methods.insert(:method_text => '"George went to the supermarket to get the stuff".match(/the/).to_s')
 methods.insert(:method_text => '["joe", "hannah", "jill", "alex"].select{|name| name.start_with? "a"}')

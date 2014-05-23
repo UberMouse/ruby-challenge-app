@@ -10,7 +10,10 @@ class HomeController
   def home(ignored_arguments, view)
     input = view.run({})
 
-    valid_commands = %w(q)
+    arguments = {add_question: input.split(' ')[1..-1].join(' ')}
+    input = input.split[0]
+
+    valid_commands = %w(q add)
     exit_commands = %w(quit exit)
 
     until valid_commands.include? input or exit_commands.include? input
@@ -27,6 +30,8 @@ class HomeController
     case input
       when 'q'
         @router.goto :present_question
+      when 'add'
+        @router.goto :add_content, arguments
     end
   end
 
