@@ -1,8 +1,12 @@
 class PresentQuestionView
+
+  # @param [ConsoleWriter] writer
   def initialize(writer)
     @writer = writer
   end
 
+  # @param [Hash] arguments
+  # @return [String] user input
   def run(arguments)
     question = arguments[:question]
 

@@ -1,10 +1,13 @@
 require 'highline/system_extensions'
 
 class CorrectQuestionView
+  # @param [ConsoleWriter] writer
   def initialize(writer)
     @writer = writer
   end
 
+  # @param [Hash] arguments
+  # @return [String] first character of user input converted to lowercase
   def run(arguments)
     question = arguments[:question]
     answer = arguments[:answer]
