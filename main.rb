@@ -30,7 +30,7 @@ class Bootstrapper
     home_controller = HomeController.new(router)
     my_eval = Eval.new
     questions_controller = QuestionsController.new(router, my_eval, snippet_service)
-    add_content_controller = AddContentController.new(router, my_eval)
+    add_content_controller = AddContentController.new(router, my_eval, snippet_service)
     writer = ConsoleWriter.new
 
     router.register_route(:home, home_controller, :home, HomeView.new(writer))
