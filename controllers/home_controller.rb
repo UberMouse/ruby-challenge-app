@@ -10,7 +10,7 @@ class HomeController
   def home(ignored_arguments, view)
     input = view.run({})
 
-    arguments = {add_question: input.split[1]}
+    arguments = {add_question: input.split(' ')[1..-1].join(' ')}
     input = input.split[0]
 
     valid_commands = %w(q add)
