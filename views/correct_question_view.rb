@@ -19,6 +19,6 @@ class CorrectQuestionView
 
     input = gets.chomp
     @writer.clear_screen
-    input.chars[0]
+    input.chars[0].downcase
   end
 end

@@ -1,8 +1,10 @@
+require 'sequel'
+
 class Database
   @@db = Sequel.sqlite('methods.db')
 
-  def self.get(id)
+  def self.get
     methods = @@db[:methods]
-    methods.all.find{|m| m.id == id}
+    methods.all.sample
   end
 end
