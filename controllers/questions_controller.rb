@@ -10,8 +10,8 @@ class QuestionsController
   def present(arguments, view)
 
     question = arguments[:question]
-    if question == nil 
-      question = @snippet_service.get_random[:method_text] 
+    if question == nil
+      question = @snippet_service.get_random.text
     end
 
     view_arguments = {
