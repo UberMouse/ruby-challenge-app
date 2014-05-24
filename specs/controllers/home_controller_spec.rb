@@ -12,6 +12,7 @@ class DummyView
   end
 end
 
+
 describe HomeController do
 
   before do
