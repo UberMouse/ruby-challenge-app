@@ -27,8 +27,6 @@ class Router
 
   # Runs a previously registered controller route
   #
-  # @param route_identifier [Symbol] location that route was registered as
-  # @param route_args [Hash] passed to controller method when route is run, defaults to empty hash
   # @raise [RouteNotFound] if there is not route registered for route_identifier
   # @return void
   def goto(command_line)

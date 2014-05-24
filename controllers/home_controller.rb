@@ -1,10 +1,5 @@
 class HomeController
 
-  # @param [Router] router
-  def initialize(router)
-    @router = router
-  end
-
   # @param [Hash] ignored_arguments
   # @param [Class] view
   def home(ignored_arguments, view)

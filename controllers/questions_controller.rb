@@ -1,11 +1,10 @@
 class QuestionsController
 
-  # @param [Router] router
-  def initialize(router, eval, snippet_service)
-    @router = router
+  def initialize(eval, snippet_service)
     @eval = eval
     @snippet_service = snippet_service
   end
+
   # @param [Hash] arguments
   # @param [Class] view
   def present(arguments, view)

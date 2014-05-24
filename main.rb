@@ -27,19 +27,17 @@ class Bootstrapper
   def initialize_routes(router)
     snippet_service = SnippetService.new SnippetDataService.new('methods.db', :methods)
 
-    home_controller = HomeController.new(router)
-    my_eval = Eval.new
-    questions_controller = QuestionsController.new(router, my_eval, snippet_service)
-    add_content_controller = AddContentController.new(router, my_eval)
+    home_controller = HomeController.new
+    eval = Eval.new
+    questions_controller = QuestionsController.new(eval, snippet_service)
+    add_content_controller = AddContentController.new(eval, snippet_service)
     writer = ConsoleWriter.new
 
-    router.register_route(:home, home_controller, :home, HomeView.new(writer))
-    router.register_route(:present_question, questions_controller, :present, PresentQuestionView.new(writer))
-    router.register_route(:correct_question, questions_controller, :correct, CorrectQuestionView.new(writer))
-    router.register_route(:incorrect_question, questions_controller, :incorrect, IncorrectQuestionView.new(writer))
-    router.register_route(:add_content, add_content_controller, :add, AddContentConfirmationView.new(writer))
-
-    # router.register_route(:quit, home_controller, :quit, nil)
+    router.register_route(:home, home_controller, :home, HomeView.new(writer.dup))
+    router.register_route(:present_question, questions_controller, :present, PresentQuestionView.new(writer.dup))
+    router.register_route(:correct_question, questions_controller, :correct, CorrectQuestionView.new(writer.dup))
+    router.register_route(:incorrect_question, questions_controller, :incorrect, IncorrectQuestionView.new(writer.dup))
+    router.register_route(:add_content, add_content_controller, :add, AddContentConfirmationView.new(writer.dup))
   end
 
   def run

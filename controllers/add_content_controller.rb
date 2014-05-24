@@ -1,18 +1,15 @@
-require_relative '../database/database'
-
 class AddContentController
 
-  # @param [Router] router
-  def initialize(router, my_eval)
-    @router = router
-    @my_eval = my_eval
+  def initialize(eval, snippet_service)
+    @eval = eval
+    @snippet_service = snippet_service
   end
 
   # @param [Hash] arguments
   # @param [Class] view
   def add(arguments, view)
 
-    arguments[:add_answer] = @my_eval.eval_safe(arguments[:add_question])
+    arguments[:add_answer] = @eval.eval_safe(arguments[:add_question])
 
     input = view.run arguments
 
