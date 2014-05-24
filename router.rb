@@ -31,11 +31,15 @@ class Router
   # @param route_args [Hash] passed to controller method when route is run, defaults to empty hash
   # @raise [RouteNotFound] if there is not route registered for route_identifier
   # @return void
-  def goto(route_identifier, route_args = {})
+  def goto(command_line)
+
+    route_args = command_line.dup
+    route_identifier = route_args.delete(:command)
+
     unless @routes.has_key? route_identifier
       raise RouteNotFound, "Route for: #{route_identifier} was not found"
     end
 
-    @routes[route_identifier].call route_args
+    @routes[route_identifier].call command_line
   end
 end

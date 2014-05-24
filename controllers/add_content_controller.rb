@@ -18,9 +18,9 @@ class AddContentController
 
     case input.downcase
       when 'c'        
-        @router.goto :home
+        return :command=>:home
       when 'h'
-        @router.goto :home
+        return :command=>:home
       else
         raise 'badd addd command'
     end

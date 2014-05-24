@@ -24,18 +24,17 @@ class HomeController
     end
 
     if exit_commands.include? input
-      @router.goto :quit
+      return :command=>:quit
     end
 
     case input
       when 'q'
-        @router.goto :present_question
+        return :command=>:present_question
       when 'add'
-        @router.goto :add_content, arguments
+        return arguments.merge(:command=>:add_content)
+      when 'quit'
+        return :command=>:quit
     end
   end
 
-  def quit(ignored_arguments, ignored_view)
-    exit(0)
-  end
 end

@@ -39,11 +39,14 @@ class Bootstrapper
     router.register_route(:incorrect_question, questions_controller, :incorrect, IncorrectQuestionView.new(writer))
     router.register_route(:add_content, add_content_controller, :add, AddContentConfirmationView.new(writer))
 
-    router.register_route(:quit, home_controller, :quit, nil)
+    # router.register_route(:quit, home_controller, :quit, nil)
   end
 
   def run
-    @router.goto :home
+    next_command = {:command=>:home}
+    until next_command[:command] == :quit
+      next_command = @router.goto next_command
+    end
   end
 end
 
