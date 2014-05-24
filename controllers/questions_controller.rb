@@ -30,9 +30,9 @@ class QuestionsController
     }
 
     if correct
-      return next_router_arguments.merge(:command => :correct_question)
+      next_router_arguments.merge(command: :correct_question)
     else
-      return view_arguments.merge(:command => :incorrect_question)
+      view_arguments.merge(command: :incorrect_question)
     end
   end
 
@@ -61,11 +61,9 @@ class QuestionsController
 
     case input
       when 'h'
-        return :command=>:home
+        return :command => :home
       when 'n'
-        return :command=>:present_question
-      else
-        raise 'badd command'
+        return :command => :present_question
     end
   end
 
@@ -87,15 +85,12 @@ class QuestionsController
 
     case input
       when 'h'
-        return :command=>:home
+        return :command => :home
       when 'r'
-        return arguments.merge(:command=>:present_question)
+        return arguments.merge(command: :present_question)
       when 'n'
-        return :command=>:present_question
-      else
-        raise 'badd command'
+        return :command => :present_question
     end
   end
-
 
 end

@@ -1,7 +1,7 @@
 class ConsoleWriter
 
   def print_line(line)
-    puts line#.each_char {|c| putc c ; sleep 0.02; $stdout.flush }
+    puts line
   end
 
   def print_on_same_line(text_frag)

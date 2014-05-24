@@ -21,11 +21,9 @@ class AddContentController
 
         @snippet_service.insert arguments[:add_question] 
          
-        return :command=>:home
+        return :command => :home
       when 'h'
-        return :command=>:home
-      else
-        raise 'badd addd command'
+        return :command => :home
     end
 
   end
