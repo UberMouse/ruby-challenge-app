@@ -9,7 +9,11 @@ class QuestionsController
   # @param [Hash] arguments
   # @param [Class] view
   def present(arguments, view)
-    question = arguments[:question] || @snippet_service.get_random[:method_text]
+
+    question = arguments[:question]
+    if question == nil 
+      question = @snippet_service.get_random[:method_text] 
+    end
 
     view_arguments = {
         question: question
@@ -26,9 +30,9 @@ class QuestionsController
     }
 
     if correct
-      @router.goto :correct_question, next_router_arguments
+      return next_router_arguments.merge(:command => :correct_question)
     else
-      @router.goto :incorrect_question, view_arguments
+      return view_arguments.merge(:command => :incorrect_question)
     end
   end
 
@@ -57,9 +61,9 @@ class QuestionsController
 
     case input
       when 'h'
-        @router.goto :home
+        return :command=>:home
       when 'n'
-        @router.goto :present_question
+        return :command=>:present_question
       else
         raise 'badd command'
     end
@@ -68,7 +72,8 @@ class QuestionsController
   # @param [Hash] arguments
   # @param [Class] view
   def incorrect(arguments, view)
-    input = view.run({})
+
+    input = view.run arguments
 
     valid_commands = %w(h n r)
 
@@ -82,11 +87,11 @@ class QuestionsController
 
     case input
       when 'h'
-        @router.goto :home
+        return :command=>:home
       when 'r'
-        @router.goto(:present_question, arguments)
+        return arguments.merge(:command=>:present_question)
       when 'n'
-        @router.goto :present_question
+        return :command=>:present_question
       else
         raise 'badd command'
     end
