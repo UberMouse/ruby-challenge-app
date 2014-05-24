@@ -18,6 +18,9 @@ class AddContentController
 
     case input.downcase
       when 'c'        
+
+        @snippet_service.insert arguments[:add_question] 
+         
         return :command=>:home
       when 'h'
         return :command=>:home
