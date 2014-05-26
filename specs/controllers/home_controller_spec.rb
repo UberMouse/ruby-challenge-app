@@ -1,16 +1,6 @@
 require 'minitest/autorun'
 require_relative '../../controllers/home_controller'
-
-class DummyView
-
-  def initialize(return_value)
-    @return_value = return_value
-  end
-
-  def run(ignored_args)
-    @return_value
-  end
-end
+require_relative 'dummy_view'
 
 
 describe HomeController do

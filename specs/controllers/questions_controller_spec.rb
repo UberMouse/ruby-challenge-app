@@ -2,24 +2,10 @@ require 'minitest/autorun'
 require_relative '../../controllers/questions_controller'
 require_relative '../../eval'
 require_relative '../../models/snippet'
+require_relative 'dummy_view'
 
 SNIPPET = '[1, 2, 3].slice(2)'
 ANSWER = '3'
-
-class DummyView
-
-  attr_accessor :view_args
-
-  def initialize(return_value)
-    @return_value = return_value
-  end
-
-  def run(args)
-    @view_args = args
-    @return_value
-  end
-end
-
 
 class DummySnippetService
   def get_random
