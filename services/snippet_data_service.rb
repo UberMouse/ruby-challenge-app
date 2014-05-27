@@ -1,4 +1,5 @@
 require 'sequel'
+require_relative '../models/snippet'
 
 class SnippetDataService
 
@@ -15,6 +16,8 @@ class SnippetDataService
   end
 
   def all
-    @table.all
+    @table.all.map do |method|
+      Snippet.new(method[:method_text])
+    end
   end
 end
