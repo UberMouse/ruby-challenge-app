@@ -1,6 +1,6 @@
 class PresentQuestionView
 
-  # @param [ConsoleWriter] writer
+  # @param [ConsoleInterface] writer
   def initialize(writer)
     @writer = writer
   end
@@ -14,7 +14,7 @@ class PresentQuestionView
     @writer.print_line question
     @writer.print_on_same_line '> '
 
-    input = gets.chomp
+    input = @writer.get_line
     @writer.clear_screen
     input
   end

@@ -1,7 +1,7 @@
 require 'highline/system_extensions'
 
 class CorrectQuestionView
-  # @param [ConsoleWriter] writer
+  # @param [ConsoleInterface] writer
   def initialize(writer)
     @writer = writer
   end
@@ -13,8 +13,7 @@ class CorrectQuestionView
     answer = arguments[:answer]
     bad_command_message = arguments[:bad_command_message]
 
-    @writer.print_line "\e[94m Congratulations! You got the question correct.\e[0m"
-    "\n"
+    @writer.print_line 'Congratulations! You got the question correct.'
     @writer.print_line question
     @writer.print_line "Your answer: #{answer}"
 
@@ -26,8 +25,8 @@ class CorrectQuestionView
       @writer.print_on_same_line bad_command_message
     end
 
-    input = gets.chomp
+    input = @writer.get_char
     @writer.clear_screen
-    input.chars[0].downcase
+    input
   end
 end

@@ -4,7 +4,7 @@ require_relative 'controllers/home_controller'
 require_relative 'controllers/questions_controller'
 require_relative 'controllers/add_content_controller'
 
-require_relative 'views/console_writer'
+require_relative 'views/console_interface'
 require_relative 'views/home_view'
 require_relative 'views/correct_question_view'
 require_relative 'views/incorrect_question_view'
@@ -31,13 +31,13 @@ class Bootstrapper
     eval = Eval.new
     questions_controller = QuestionsController.new(eval, snippet_service)
     add_content_controller = AddContentController.new(eval, snippet_service)
-    writer = ConsoleWriter.new
+    writer = ConsoleInterface.new
 
-    router.register_route(:home, home_controller, :home, HomeView.new(writer.dup))
-    router.register_route(:present_question, questions_controller, :present, PresentQuestionView.new(writer.dup))
-    router.register_route(:correct_question, questions_controller, :correct, CorrectQuestionView.new(writer.dup))
-    router.register_route(:incorrect_question, questions_controller, :incorrect, IncorrectQuestionView.new(writer.dup))
-    router.register_route(:add_content, add_content_controller, :add, AddContentConfirmationView.new(writer.dup))
+    router.register_route(:home, home_controller, :home, HomeView.new(writer))
+    router.register_route(:present_question, questions_controller, :present, PresentQuestionView.new(writer))
+    router.register_route(:correct_question, questions_controller, :correct, CorrectQuestionView.new(writer))
+    router.register_route(:incorrect_question, questions_controller, :incorrect, IncorrectQuestionView.new(writer))
+    router.register_route(:add_content, add_content_controller, :add, AddContentConfirmationView.new(writer))
   end
 
   def run

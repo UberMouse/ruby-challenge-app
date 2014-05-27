@@ -1,5 +1,5 @@
 class AddContentConfirmationView
-  # @param [ConsoleWriter] writer
+  # @param [ConsoleInterface] writer
   def initialize(writer)
     @writer = writer
   end
@@ -20,9 +20,9 @@ class AddContentConfirmationView
     @writer.print_line '[C]onfirm'
     @writer.print_line 'Back to [H]ome'
 
-    input = gets.chomp
+    input = @writer.get_char
     @writer.clear_screen
-    input.chars[0].downcase
+    input
 
   end
 end

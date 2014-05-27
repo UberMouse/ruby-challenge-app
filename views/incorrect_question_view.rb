@@ -1,6 +1,6 @@
 class IncorrectQuestionView
 
-  # @param [ConsoleWriter] writer
+  # @param [ConsoleInterface] writer
   def initialize(writer)
     @writer = writer
   end
@@ -20,8 +20,8 @@ class IncorrectQuestionView
       @writer.print_on_same_line bad_command_message
     end
 
-    input = gets.chomp
+    input = @writer.get_char
     @writer.clear_screen
-    input.chars[0].downcase
+    input
   end
 end
