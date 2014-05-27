@@ -1,10 +1,5 @@
 class HomeController
 
-  # @param [Router] router
-  def initialize(router)
-    @router = router
-  end
-
   # @param [Hash] ignored_arguments
   # @param [Class] view
   def home(ignored_arguments, view)
@@ -24,16 +19,16 @@ class HomeController
     end
 
     if exit_commands.include? input
-      return :command=>:quit
+      return :command => :quit
     end
 
     case input
       when 'q'
-        return :command=>:present_question
+        return :command => :present_question
       when 'add'
-        return arguments.merge(:command=>:add_content)
+        return arguments.merge(command: :add_content)
       when 'quit'
-        return :command=>:quit
+        return :command => :quit
     end
   end
 
